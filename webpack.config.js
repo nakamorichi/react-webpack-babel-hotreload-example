@@ -46,8 +46,8 @@ const conf = {
 				test: /\.jsx?$/,
 				loaders: ['babel'],
 				exclude: /node_modules/
-		 }
-	 ]
+			}
+		]
 	},
 	plugins: plugins
 };
@@ -65,7 +65,7 @@ if (MODE_DEV_SERVER) {
 	];
 } else {
 	conf.devtool = 'source-map';
-	conf.entry = ['./app/index.jsx']
+	conf.entry = ['./app/index.jsx'];
 }
 
 module.exports = conf;

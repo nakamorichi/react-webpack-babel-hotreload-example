@@ -1,6 +1,6 @@
 {
 	"name": "react-webpack-babel-hotreload-example",
-	"version": 1.0,
+	"version": "1.0.0",
 	"description": "An example of how to set up React together with Webpack, Babel, and hot reloading",
 	"author": "Petri Kivikangas <petri.kivikangas@protonmail.com>",
 	"keywords": ["React", "Webpack", "Babel", "hot reload"],
