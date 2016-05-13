@@ -56,7 +56,7 @@ const conf = {
 if (MODE_DEV_SERVER) {
 	plugins.push(new Webpack.HotModuleReplacementPlugin());
 	conf.PORT = DEV_SERVER_PORT;
-	conf.devtool = 'source-map';
+	conf.devtool = 'eval';
 	conf.entry = [
 		'react-hot-loader/patch',
 		'webpack-dev-server/client?http://0.0.0.0:' + DEV_SERVER_PORT, // WebpackDevServer host and port
