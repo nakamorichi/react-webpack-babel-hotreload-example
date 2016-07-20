@@ -1,9 +1,19 @@
 {
 	"name": "react-webpack-babel-hotreload-example",
 	"version": "1.0.0",
-	"description": "An example of how to set up React together with Webpack, Babel, and hot reloading",
+	"description": "An example of how to set up React, Redux, Saga, and routing together with Webpack, Babel, and hot reloading",
 	"author": "Petri Kivikangas <petri.kivikangas@protonmail.com>",
-	"keywords": ["React", "Webpack", "Babel", "hot reload"],
+	"keywords": [
+    "react",
+    "react-router",
+    "redux",
+    "redux-saga",
+    "react-redux-router",
+    "react-hot-loader",
+    "webpack",
+    "babel",
+    "hot reload"
+  ],
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/Kitanotori/react-webpack-babel-hotreload-example"
@@ -11,27 +21,37 @@
 	"bugs": {
 		"url": "https://github.com/Kitanotori/react-webpack-babel-hotreload-example/issues"
 	},
-	"license": "Apache License Version 2.0",
+	"license": "Apache-2.0",
 	"main": "app/index.jsx",
 	"scripts": {
-		"start": "node webpack-dev-server.js",
-		"bundle": "node node_modules/webpack/bin/webpack.js"
+		"start": "cross-env NODE_ENV=development node webpack-dev-server.js",
+		"bundle": "cross-env NODE_ENV=production node node_modules/webpack/bin/webpack.js"
 	},
 	"devDependencies": {
-		"babel-core": "^6.8.0",
-		"babel-loader": "^6.2.4",
-		"babel-preset-es2015-webpack": "^6.4.1",
-		"babel-preset-react": "^6.5.0",
-		"eslint": "^2.9.0",
-		"eslint-plugin-react": "^5.0.1",
+		"babel-core": "^6.11.0",
+		"babel-eslint": "^6.1.0",
+		"babel-loader": "^6.2.0",
+		"babel-preset-es2015-webpack": "^6.4.0",
+		"babel-preset-react": "^6.11.0",
+		"babel-preset-stage-0": "^6.5.0",
+		"babel-regenerator-runtime": "^6.5.0",
+		"babel-runtime": "^6.9.2",
+		"cross-env": "^2.0.0",
+		"eslint": "^3.1.0",
+		"eslint-plugin-react": "^5.2.0",
 		"react-hot-loader": "^3.0.0-",
 		"webpack": "^2.1.0-",
-		"webpack-dev-server": "^2.0.0-"
+		"webpack-dev-server": "^2.1.0-"
 	},
 	"dependencies": {
-		"material-ui": "^0.15.0-",
-		"react": "^15.0.2",
-		"react-dom": "^15.0.2",
-		"react-tap-event-plugin": "^1.0.0"
+		"material-ui": "^0.15.2",
+		"react": "^15.2.0",
+		"react-dom": "^15.2.0",
+		"react-redux": "^4.4.0",
+		"react-router": "^2.6.0",
+		"react-router-redux": "^4.0.0",
+		"react-tap-event-plugin": "^1.0.0",
+		"redux": "^3.5.0",
+		"redux-saga": "^0.11.0"
 	}
 }
