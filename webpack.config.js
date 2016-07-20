@@ -49,6 +49,9 @@ const conf = {
 			}
 		]
 	},
+	resolve: {
+		extensions: ['', '.js', '.jsx']
+	},
 	plugins: plugins
 };
 
@@ -58,14 +61,15 @@ if (MODE_DEV_SERVER) {
 	conf.PORT = DEV_SERVER_PORT;
 	conf.devtool = 'eval';
 	conf.entry = [
-		'react-hot-loader/patch',
+		'babel-regenerator-runtime',
+		'react-hot-loader/patch', // this has to be the first loaded plugin in order to work properly!
 		'webpack-dev-server/client?http://0.0.0.0:' + DEV_SERVER_PORT, // WebpackDevServer host and port
 		'webpack/hot/only-dev-server', // 'only' prevents reload on syntax errors
-		'./app/index.jsx' // appʼs entry point
+		'./src/app.jsx' // appʼs entry point
 	];
 } else {
 	conf.devtool = 'source-map';
-	conf.entry = ['./app/index.jsx'];
+	conf.entry = ['babel-regenerator-runtime', './src/app.jsx'];
 }
 
 module.exports = conf;

@@ -3,7 +3,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
-import App from './app.jsx';
+import Root from './root';
 
 // Needed for onTouchTap
 // Can go away when react 1.0 release
@@ -12,24 +12,14 @@ import App from './app.jsx';
 injectTapEventPlugin();
 
 const root = document.getElementById('root');
-const app = (
-	<AppContainer>
-		<App/>
-	</AppContainer>
-);
 
-ReactDOM.render(app, root);
-
-// module.hot.accept(); // does not seem to work (yet?)
+ReactDOM.render(<Root/>, root);
 
 if (module.hot) {
-	module.hot.accept('./app.jsx', () => {
-		// If you use Webpack 2 in ES modules mode, you can
-		// use <App /> here rather than require() a <NextApp />.
-		// const NextApp = require('./app.jsx').default;
+	module.hot.accept('./root', () => {
 		ReactDOM.render(
 			<AppContainer>
-				<App/>
+				<Root/>
 			</AppContainer>, root);
 	});
 }

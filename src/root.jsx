@@ -19,7 +19,7 @@ const muiTheme = getMuiTheme({
 	}
 });
 
-export default class App extends React.Component {
+export default class Root extends React.Component {
 	constructor(props, context) {
 		super(props, context);
 		this.handleRequestClose = this.handleRequestClose.bind(this);
@@ -39,17 +39,17 @@ export default class App extends React.Component {
 	}
 
 	render() {
-		const standardActions = <FlatButton label="Ok" secondary={true} onTouchTap={this.handleRequestClose}/>;
+		const standardActions = <FlatButton label='Ok' secondary={true} onTouchTap={this.handleRequestClose}/>;
 
 		return (
 			<MuiThemeProvider muiTheme={muiTheme}>
 				<div style={styles.container}>
-					<Dialog open={this.state.open} title="Super Secret Password" actions={standardActions} onRequestClose={this.handleRequestClose}>
+					<Dialog open={this.state.open} title='Super Secret Password' actions={standardActions} onRequestClose={this.handleRequestClose}>
 						1-2-3-4-5
 					</Dialog>
 					<h1>material-ui</h1>
 					<h2>example projects</h2>
-					<RaisedButton label="Super Secret Password" primary={true} onTouchTap={this.handleTouchTap}/>
+					<RaisedButton label='Super Secret Password' primary={true} onTouchTap={this.handleTouchTap}/>
 				</div>
 			</MuiThemeProvider>
 		);
