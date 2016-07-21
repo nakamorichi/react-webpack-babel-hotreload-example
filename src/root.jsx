@@ -1,10 +1,13 @@
-import React from 'react';
+import React, {Component, PropTypes} from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
 import Dialog from 'material-ui/Dialog';
 import {deepOrange500} from 'material-ui/styles/colors';
 import FlatButton from 'material-ui/FlatButton';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import {Route, IndexRoute} from 'react-router';
+
+import Main from './main';
 
 const styles = {
 	container: {
@@ -19,7 +22,16 @@ const muiTheme = getMuiTheme({
 	}
 });
 
-export default class Root extends React.Component {
+const routes = (
+	<Route path='/' component={Main}></Route>
+);
+
+export default class Root extends Component {
+	static propTypes = {
+		store: PropTypes.object.isRequired,
+		history: PropTypes.object.isRequired
+	};
+
 	constructor(props, context) {
 		super(props, context);
 		this.handleRequestClose = this.handleRequestClose.bind(this);
@@ -42,16 +54,13 @@ export default class Root extends React.Component {
 		const standardActions = <FlatButton label='Ok' secondary={true} onTouchTap={this.handleRequestClose}/>;
 
 		return (
-			<MuiThemeProvider muiTheme={muiTheme}>
-				<div style={styles.container}>
-					<Dialog open={this.state.open} title='Super Secret Password' actions={standardActions} onRequestClose={this.handleRequestClose}>
-						1-2-3-4-5
-					</Dialog>
-					<h1>material-ui</h1>
-					<h2>example projects</h2>
-					<RaisedButton label='Super Secret Password' primary={true} onTouchTap={this.handleTouchTap}/>
-				</div>
-			</MuiThemeProvider>
+			<Provider store={store}>
+				<Router history={history}>
+					<MuiThemeProvider muiTheme={muiTheme}>
+						{routes}
+					</MuiThemeProvider>
+				</Router>
+			</Provider>
 		);
 	}
 }
