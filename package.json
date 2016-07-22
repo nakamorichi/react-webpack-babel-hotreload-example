@@ -24,7 +24,6 @@
 		"url": "https://github.com/Kitanotori/react-webpack-babel-hotreload-example/issues"
 	},
 	"license": "Apache-2.0",
-	"main": "app/index.jsx",
 	"scripts": {
 		"start": "cross-env NODE_ENV=development node webpack-dev-server.js",
 		"bundle": "cross-env NODE_ENV=production node node_modules/webpack/bin/webpack.js"
