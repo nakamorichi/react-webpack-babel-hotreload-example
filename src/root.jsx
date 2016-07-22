@@ -1,26 +1,13 @@
 import React, {Component, PropTypes} from 'react';
-import RaisedButton from 'material-ui/RaisedButton';
-import Dialog from 'material-ui/Dialog';
-import {deepOrange500} from 'material-ui/styles/colors';
-import FlatButton from 'material-ui/FlatButton';
+import {Route, Router} from 'react-router';
+
+import {Provider} from 'react-redux';
+
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import {Route, IndexRoute} from 'react-router';
-
 import Main from './main';
 
-const styles = {
-	container: {
-		textAlign: 'center',
-		paddingTop: 200
-	}
-};
-
-const muiTheme = getMuiTheme({
-	palette: {
-		accent1Color: deepOrange500
-	}
-});
+const muiTheme = getMuiTheme({});
 
 const routes = (
 	<Route path='/' component={Main}></Route>
@@ -32,34 +19,15 @@ export default class Root extends Component {
 		history: PropTypes.object.isRequired
 	};
 
-	constructor(props, context) {
-		super(props, context);
-		this.handleRequestClose = this.handleRequestClose.bind(this);
-		this.handleTouchTap = this.handleTouchTap.bind(this);
-
-		this.state = {
-			open: false
-		};
-	}
-
-	handleRequestClose() {
-		this.setState({open: false});
-	}
-
-	handleTouchTap() {
-		this.setState({open: true});
-	}
-
 	render() {
-		const standardActions = <FlatButton label='Ok' secondary={true} onTouchTap={this.handleRequestClose}/>;
-
+		const {store, history} = this.props;
 		return (
 			<Provider store={store}>
-				<Router history={history}>
-					<MuiThemeProvider muiTheme={muiTheme}>
+				<MuiThemeProvider muiTheme={muiTheme}>
+					<Router history={history}>
 						{routes}
-					</MuiThemeProvider>
-				</Router>
+					</Router>
+				</MuiThemeProvider>
 			</Provider>
 		);
 	}

@@ -31,7 +31,7 @@ injectTapEventPlugin();
 
 const root = document.getElementById('root');
 
-render(<Root/>, root);
+render(<Root store={store} history={history}/>, root);
 
 if (module.hot) {
 	module.hot.accept('./root', () => {

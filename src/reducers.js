@@ -4,73 +4,74 @@ import { call, fork, put } from 'redux-saga/effects';
 // Redux action types
 const types = {
 	// Redux action requests
-	REQUEST_ACTION_X: 'REQUEST_ACTION_X',
-	REQUEST_ACTION_Y: 'REQUEST_ACTION_Y',
-	REQUEST_ACTION_Z: 'REQUEST_ACTION_Z',
+	ASYNC_FETCH_SUCCEEDED: 'ASYNC_FETCH_SUCCEEDED',
+	ASYNC_FETCH_FAILED: 'ASYNC_FETCH_FAILED',
+	SHOW_DIALOG: 'SHOW_DIALOG',
+	HIDE_DIALOG: 'HIDE_DIALOG',
 
 	// Saga worker requests
-	ACTION_X: 'ACTION_X',
-	ACTION_Y: 'ACTION_Y',
-	ACTION_Z: 'ACTION_Z'
+	REQUEST_ASYNC_FETCH: 'REQUEST_ASYNC_FETCH'
+};
+// Redux actions
+export const actions = {
+	showDialog: () => ({ type: types.SHOW_DIALOG }),
+	hideDialog: () => ({ type: types.HIDE_DIALOG }),
+	requestAsyncFetch: () => ({ type: types.REQUEST_ASYNC_FETCH })
 };
 
-// Redux actions
-export function actionX() {
-	return { type: types.REQUEST_ACTION_X };
-}
-export function actionY() {
-	return { type: types.REQUEST_ACTION_Y };
-}
-export function actionZ() {
-	return { type: types.REQUEST_ACTION_Z };
+function fetchExample(url) {
+	return fetch(url).then(response => response.json());
 }
 
 // Saga workers
-export function* actionXWorker(action) {
-
-}
-export function* actionYWorker(action) {
-
-}
-export function* actionZWorker(action) {
-
+export function* asyncFetchWorker(action) {
+	const url = 'https://jsonplaceholder.typicode.com/users';
+	try {
+		const data = yield call(fetchExample, url);
+		yield put({ type: types.ASYNC_FETCH_SUCCEEDED, data });
+	} catch (error) {
+		yield put({ type: types.ASYNC_FETCH_FAILED, error: { type: error.type, message: error.message } });
+	}
 }
 
 // Saga watchers
-export function* actionXWatcher() {
-	yield* takeEvery(types.REQUEST_ACTION_X, actionXWorker);
+export function* asyncFetchWatcher() {
+	yield* takeEvery(types.REQUEST_ASYNC_FETCH, asyncFetchWorker);
 }
-export function* actionYWatcher() {
-	yield* takeEvery(types.REQUEST_ACTION_Y, actionYWorker);
-}
-export function* actionZWatcher() {
-	yield* takeEvery(types.REQUEST_ACTION_Z, actionZWorker);
+
+export function* rootSaga() {
+	yield fork(asyncFetchWatcher);
 }
 
 const initial_state = {
-	x: false,
-	y: false
+	fetch_result: [],
+	is_showing_dialog: false
 };
 
-export default function exampleReducer(state = initial_state, action) {
+export function exampleReducer(state = initial_state, action) {
 	switch (action.type) {
-		case types.ACTION_X:
+
+		case types.SHOW_DIALOG:
 			return {
 				...state,
-				x: true
+				is_showing_dialog: true
 			};
 
-		case types.ACTION_Y:
+		case types.HIDE_DIALOG:
 			return {
 				...state,
-				y: true
+				is_showing_dialog: false
 			};
 
-		case types.ACTION_Z:
+		case types.ASYNC_FETCH_SUCCEEDED:
 			return {
 				...state,
-				x: false,
-				y: false
+				fetch_result: action.data
+			};
+
+		case types.ASYNC_FETCH_FAILED:
+			return {
+				...state
 			};
 
 		default:
