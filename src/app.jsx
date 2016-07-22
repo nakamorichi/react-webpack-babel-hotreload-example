@@ -5,22 +5,39 @@ import {browserHistory} from 'react-router';
 import {AppContainer} from 'react-hot-loader';
 
 // Redux
-import {createStore, combineReducers, applyMiddleware} from 'redux';
-import {syncHistoryWithStore, routerReducer} from 'react-router-redux';
+import {applyMiddleware, compose, createStore} from 'redux';
+import {syncHistoryWithStore} from 'react-router-redux';
 import createSagaMiddleware from 'redux-saga';
 
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
-import {exampleReducer, rootSaga} from './reducers';
+import {rootReducer, rootSaga} from './reducers';
 import Root from './root';
 
-const rootReducer = combineReducers({routing: routerReducer, exampleReducer});
+function configureStore(initial_state, middleware) {
+	const store = createStore(
+		rootReducer,
+		initial_state,
+		compose(
+			applyMiddleware(...middleware),
+			window.devToolsExtension ? window.devToolsExtension() : x => x
+		)
+	);
+
+	if (module.hot) {
+		// Enable Webpack hot module replacement for reducers
+		module.hot.accept('./reducers', () => {
+			store.replaceReducer(rootReducer);
+		});
+	}
+
+	return store;
+}
+
 const sagaMiddleware = createSagaMiddleware();
-const store = createStore(
-	rootReducer,
-	window.devToolsExtension && window.devToolsExtension(),
-	applyMiddleware(sagaMiddleware)
-);
+const initial_state = {};
+const middleware = [sagaMiddleware];
+const store = configureStore(initial_state, middleware);
 const history = syncHistoryWithStore(browserHistory, store);
 
 sagaMiddleware.run(rootSaga);

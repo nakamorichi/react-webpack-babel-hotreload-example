@@ -1,3 +1,5 @@
+import { combineReducers } from 'redux';
+import { routerReducer } from 'react-router-redux';
 import { takeEvery } from 'redux-saga';
 import { call, fork, put } from 'redux-saga/effects';
 
@@ -78,3 +80,5 @@ export function exampleReducer(state = initial_state, action) {
 			return state;
 	}
 }
+
+export const rootReducer = combineReducers({ routing: routerReducer, exampleReducer });
