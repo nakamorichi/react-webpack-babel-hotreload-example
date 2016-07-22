@@ -1,19 +1,21 @@
 {
 	"name": "react-webpack-babel-hotreload-example",
-	"version": "1.0.0",
-	"description": "An example of how to set up React, Redux, Saga, and routing together with Webpack, Babel, and hot reloading",
+	"version": "1.1.0",
+	"description": "Example application for setting up React, React Router, Redux, Material-UI, Webpack, Babel, and React Hot Loader",
 	"author": "Petri Kivikangas <petri.kivikangas@protonmail.com>",
 	"keywords": [
-    "react",
-    "react-router",
-    "redux",
-    "redux-saga",
-    "react-redux-router",
-    "react-hot-loader",
-    "webpack",
-    "babel",
-    "hot reload"
-  ],
+		"example",
+		"hot reload",
+		"react",
+		"react-router",
+		"redux",
+		"react-router-redux",
+		"redux-saga",
+		"material-ui",
+		"react-hot-loader",
+		"webpack",
+		"babel"
+	],
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/Kitanotori/react-webpack-babel-hotreload-example"
