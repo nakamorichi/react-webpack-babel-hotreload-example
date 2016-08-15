@@ -1,17 +1,14 @@
 import React, {Component, PropTypes} from 'react';
-import {Route, Router} from 'react-router';
+import {Router} from 'react-router';
 
 import {Provider} from 'react-redux';
 
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import Main from './main';
+
+import Routes from './routes';
 
 const muiTheme = getMuiTheme({});
-
-const routes = (
-	<Route path='/' component={Main}></Route>
-);
 
 export default class Root extends Component {
 	static propTypes = {
@@ -25,7 +22,7 @@ export default class Root extends Component {
 			<Provider store={store}>
 				<MuiThemeProvider muiTheme={muiTheme}>
 					<Router history={history}>
-						{routes}
+						{Routes}
 					</Router>
 				</MuiThemeProvider>
 			</Provider>
