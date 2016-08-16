@@ -1,5 +1,3 @@
-import { combineReducers } from 'redux';
-import { routerReducer } from 'react-router-redux';
 import { takeEvery } from 'redux-saga';
 import { call, fork, put } from 'redux-saga/effects';
 
@@ -14,6 +12,7 @@ const types = {
 	// Saga worker requests
 	REQUEST_ASYNC_FETCH: 'REQUEST_ASYNC_FETCH'
 };
+
 // Redux actions
 export const actions = {
 	showDialog: () => ({ type: types.SHOW_DIALOG }),
@@ -41,16 +40,12 @@ export function* asyncFetchWatcher() {
 	yield* takeEvery(types.REQUEST_ASYNC_FETCH, asyncFetchWorker);
 }
 
-export function* rootSaga() {
-	yield fork(asyncFetchWatcher);
-}
-
 const initial_state = {
 	fetch_result: [],
 	is_showing_dialog: false
 };
 
-export function exampleReducer(state = initial_state, action) {
+export function asyncFetchReducer(state = initial_state, action) {
 	switch (action.type) {
 
 		case types.SHOW_DIALOG:
@@ -80,5 +75,3 @@ export function exampleReducer(state = initial_state, action) {
 			return state;
 	}
 }
-
-export const rootReducer = combineReducers({ routing: routerReducer, exampleReducer });

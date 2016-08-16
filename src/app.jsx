@@ -12,7 +12,7 @@ import createSagaMiddleware from 'redux-saga';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
 import {rootReducer, rootSaga} from './reducers';
-import Root from './root';
+import Root from './components/root';
 
 function configureStore(initial_state, middleware) {
 	const store = createStore(
@@ -51,7 +51,7 @@ const root = document.getElementById('root');
 render(<Root store={store} history={history}/>, root);
 
 if (module.hot) {
-	module.hot.accept('./root', () => {
+	module.hot.accept('./components/root', () => {
 		render(
 			<AppContainer>
 				<Root store={store} history={history}/>
