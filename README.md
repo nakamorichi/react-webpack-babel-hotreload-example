@@ -12,7 +12,7 @@ The purpose of this example is to show how to set up a non-trivial but concise R
 - [redux-saga](https://github.com/yelouafi/redux-saga) for advanced asynchronic processing
 - [webpack](https://github.com/webpack/webpack) for bundling the code and providing a development server
 
-In development mode, the code is automatically transpiled by Babel and hot-loaded to the browser by Webpack development server using gaeron's awesome react-hot-loader Webpack plugin. Thus, the changes made to the source files are reflected automatically on the browser *without page reload* applying a method called [hot reloading](https://medium.com/@rajaraodv/webpacks-hmr-react-hot-loader-the-missing-manual-232336dc0d96).
+In development mode, the code is automatically transpiled by Babel and hot-loaded to the browser by utilizing Webpack's hot reloading feature and react-hot-loader plugin. With [hot reloading](https://medium.com/@rajaraodv/webpacks-hmr-react-hot-loader-the-missing-manual-232336dc0d96), the changes made to the source files are reflected automatically on the browser *without page reload*. Page reload resets application state whereas hot reload preserves the state and only updates the changed part of the application.
 
 Requirements
 ------------
