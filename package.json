@@ -25,7 +25,7 @@
 	},
 	"license": "Apache-2.0",
 	"scripts": {
-		"start": "cross-env NODE_ENV=development nodemon --watch webpack-dev-server.js --watch webpack.config.js webpack-dev-server.js",
+		"start": "cross-env NODE_ENV=development PORT=7000 nodemon --watch webpack-dev-server.js --watch webpack.config.js webpack-dev-server.js",
 		"bundle": "cross-env NODE_ENV=production webpack"
 	},
 	"devDependencies": {

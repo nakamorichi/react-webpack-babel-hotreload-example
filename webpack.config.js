@@ -3,7 +3,7 @@
 const Path = require('path');
 const Webpack = require('webpack');
 
-const DEV_SERVER_PORT = 7000;
+const DEV_SERVER_PORT = process.env.PORT;
 const NODE_ENV = process.env.NODE_ENV ? process.env.NODE_ENV.toLowerCase() : 'development';
 const MODE_DEV_SERVER = process.argv[1].indexOf('webpack-dev-server') > -1 ? true : false;
 const FAIL_ON_ERROR = process.env.FAIL_ON_ERROR ? JSON.parse(process.env.FAIL_ON_ERROR) : !MODE_DEV_SERVER; // disabled on dev-server mode, enabled in build mode
@@ -70,4 +70,4 @@ if (MODE_DEV_SERVER) {
 	conf.entry = ['babel-regenerator-runtime', './src/app'];
 }
 
-module.exports = { conf, DEV_SERVER_PORT };
+module.exports = conf;
