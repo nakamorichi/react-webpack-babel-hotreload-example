@@ -1,5 +1,5 @@
 import React from 'react';
-import {Route, IndexRoute} from 'react-router';
+import { Route, IndexRoute } from 'react-router';
 import Index from './index';
 import Main from './main';
 import RouteExample1 from './route_example_1';

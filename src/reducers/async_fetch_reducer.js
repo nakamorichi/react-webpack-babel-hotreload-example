@@ -1,5 +1,5 @@
 import { takeEvery } from 'redux-saga';
-import { call, fork, put } from 'redux-saga/effects';
+import { call, put } from 'redux-saga/effects';
 
 // Redux action types
 const types = {

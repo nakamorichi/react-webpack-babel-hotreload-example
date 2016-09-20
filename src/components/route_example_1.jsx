@@ -1,11 +1,9 @@
-import React, {Component} from 'react';
+import React from 'react';
 
-export default class RouteExample1 extends Component {
-	render() {
-		return (
-			<div>
-				<h1>RouteExample1</h1>
-			</div>
-		);
-	}
-}
+const RouteExample1 = () => (
+	<div>
+		<h1>RouteExample1</h1>
+	</div>
+);
+
+export default RouteExample1;
