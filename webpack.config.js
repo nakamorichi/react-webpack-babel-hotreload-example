@@ -48,7 +48,7 @@ const conf = {
 		]
 	},
 	resolve: {
-		extensions: ['', '.js', '.jsx']
+		extensions: ['.js', '.jsx']
 	},
 	plugins: plugins
 };
@@ -57,7 +57,6 @@ const conf = {
 if (MODE_DEV_SERVER) {
 	plugins.push(new Webpack.NamedModulesPlugin());
 	plugins.push(new Webpack.HotModuleReplacementPlugin());
-	conf.PORT = DEV_SERVER_PORT;
 	conf.devtool = 'eval';
 	conf.entry = [
 		'babel-regenerator-runtime',
@@ -71,4 +70,4 @@ if (MODE_DEV_SERVER) {
 	conf.entry = ['babel-regenerator-runtime', './src/app'];
 }
 
-module.exports = conf;
+module.exports = { conf, DEV_SERVER_PORT };
