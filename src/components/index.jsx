@@ -4,10 +4,11 @@ import { connect } from 'react-redux';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
+import TextField from 'material-ui/TextField';
 
 import { actions } from '../reducers/async_fetch_reducer';
 	
-const Index = ({ fetch_result, is_showing_dialog, showDialog, hideDialog, requestAsyncFetch }) => {
+const Index = ({ fetch_result, is_showing_dialog, showDialog, hideDialog, requestAsyncFetch, fetch_url, changeFetchURL }) => {
 	
 	const dialog_actions = (
 		<div>
@@ -22,8 +23,18 @@ const Index = ({ fetch_result, is_showing_dialog, showDialog, hideDialog, reques
 			<RaisedButton label='Test asynchronic fetch' primary={true} onTouchTap={showDialog}/>
 
 			<Dialog open={is_showing_dialog} title='Example async fetch using Saga' actions={dialog_actions} onRequestClose={hideDialog}>
+				<TextField
+					id='text-field-controlled'
+					value={fetch_url}
+					onChange={changeFetchURL}
+					fullWidth={true}
+				/>
 				<ul>
-					{fetch_result.map(obj => <li key={obj.id}>{obj.website}</li>)}
+					{fetch_result.map((obj, idx) => (
+						<li key={idx}>
+							<pre>{JSON.stringify(obj)}</pre>
+						</li>
+					))}
 				</ul>
 			</Dialog>
 		</div>
@@ -36,13 +47,16 @@ Index.propTypes = {
 	is_showing_dialog: PropTypes.bool.isRequired,
 	showDialog: PropTypes.func.isRequired,
 	hideDialog: PropTypes.func.isRequired,
-	requestAsyncFetch: PropTypes.func.isRequired
+	requestAsyncFetch: PropTypes.func.isRequired,
+	fetch_url: PropTypes.string.isRequired,
+	changeFetchURL: PropTypes.func.isRequired
 };
 	
 function mapStateToProps(state) {
 	return {
 		fetch_result: state.asyncFetchReducer.fetch_result,
-		is_showing_dialog: state.asyncFetchReducer.is_showing_dialog
+		is_showing_dialog: state.asyncFetchReducer.is_showing_dialog,
+		fetch_url: state.asyncFetchReducer.fetch_url
 	};
 }
 

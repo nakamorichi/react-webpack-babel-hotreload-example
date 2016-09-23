@@ -1,5 +1,5 @@
 import { takeEvery } from 'redux-saga';
-import { call, put } from 'redux-saga/effects';
+import { call, put, select } from 'redux-saga/effects';
 
 // Redux action types
 const types = {
@@ -8,6 +8,7 @@ const types = {
 	ASYNC_FETCH_FAILED: 'ASYNC_FETCH_FAILED',
 	SHOW_DIALOG: 'SHOW_DIALOG',
 	HIDE_DIALOG: 'HIDE_DIALOG',
+	CHANGE_FETCH_URL: 'CHANGE_FETCH_URL',
 
 	// Saga worker requests
 	REQUEST_ASYNC_FETCH: 'REQUEST_ASYNC_FETCH'
@@ -17,21 +18,31 @@ const types = {
 export const actions = {
 	showDialog: () => ({ type: types.SHOW_DIALOG }),
 	hideDialog: () => ({ type: types.HIDE_DIALOG }),
-	requestAsyncFetch: () => ({ type: types.REQUEST_ASYNC_FETCH })
+	requestAsyncFetch: () => ({ type: types.REQUEST_ASYNC_FETCH }),
+	changeFetchURL: (obj) => {
+		const new_fetch_url = obj.target.value || typeof(obj) === 'string' ? obj : '';
+		return { type: types.CHANGE_FETCH_URL, new_fetch_url };
+	}
 };
 
-function fetchExample(url) {
-	return fetch(url).then(response => response.json());
-}
+const fetchExample = (url) => {
+	return fetch(url).then(response => {
+		if (response.ok) {
+			return response.json();
+		} else throw new Error('Fetch failed with status code: ' + response.status);
+	});
+};
+
+const getFetchURL = (state) => state.asyncFetchReducer.fetch_url;
 
 // Saga workers
-export function* asyncFetchWorker(action) {
-	const url = 'https://jsonplaceholder.typicode.com/users';
+export function* asyncFetchWorker() {
+	const fetch_url = yield select(getFetchURL);
 	try {
-		const data = yield call(fetchExample, url);
+		const data = yield call(fetchExample, fetch_url);
 		yield put({ type: types.ASYNC_FETCH_SUCCEEDED, data });
 	} catch (error) {
-		yield put({ type: types.ASYNC_FETCH_FAILED, error: { type: error.type, message: error.message } });
+		yield put({ type: types.ASYNC_FETCH_FAILED, error: { message: error.message } });
 	}
 }
 
@@ -41,6 +52,7 @@ export function* asyncFetchWatcher() {
 }
 
 const initial_state = {
+	fetch_url: 'https://jsonplaceholder.typicode.com/users',
 	fetch_result: [],
 	is_showing_dialog: false
 };
@@ -68,7 +80,14 @@ export function asyncFetchReducer(state = initial_state, action) {
 
 		case types.ASYNC_FETCH_FAILED:
 			return {
-				...state
+				...state,
+				fetch_result: []
+			};
+
+		case types.CHANGE_FETCH_URL:
+			return {
+				...state,
+				fetch_url: action.new_fetch_url
 			};
 
 		default:
