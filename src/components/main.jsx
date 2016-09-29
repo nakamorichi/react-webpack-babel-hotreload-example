@@ -42,10 +42,8 @@ Main.propTypes = {
 	hideMenu: PropTypes.func.isRequired
 };
 
-function mapStateToProps(state) {
-	return {
-		is_showing_menu: state.menuReducer.is_showing_menu
-	};
-}
+const mapStateToProps = (state) => ({
+	is_showing_menu: state.menuReducer.is_showing_menu
+});
 
 export default connect(mapStateToProps, actions)(Main);

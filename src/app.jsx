@@ -14,7 +14,7 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 import { rootReducer, rootSaga } from './reducers';
 import Root from './components/root';
 
-function configureStore(initial_state, middleware) {
+const configureStore = (initial_state, middleware) => {
 	const store = createStore(
 		rootReducer,
 		initial_state,
@@ -32,7 +32,7 @@ function configureStore(initial_state, middleware) {
 	}
 
 	return store;
-}
+};
 
 const sagaMiddleware = createSagaMiddleware();
 const initial_state = {};

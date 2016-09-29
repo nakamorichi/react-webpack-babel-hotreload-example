@@ -6,7 +6,7 @@ import { Provider } from 'react-redux';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
-import Routes from './routes';
+import { Routes } from './routes';
 
 const muiTheme = getMuiTheme({});
 
@@ -14,7 +14,7 @@ const Root = ({ store, history }) => (
 	<Provider store={store}>
 		<MuiThemeProvider muiTheme={muiTheme}>
 			<Router history={history}>
-				{Routes}
+				{Routes(store)}
 			</Router>
 		</MuiThemeProvider>
 	</Provider>

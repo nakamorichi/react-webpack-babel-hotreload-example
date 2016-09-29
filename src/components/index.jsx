@@ -6,10 +6,10 @@ import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 
-import { actions } from '../reducers/async_fetch_reducer';
-	
-const Index = ({ fetch_result, is_showing_dialog, showDialog, hideDialog, requestAsyncFetch, fetch_url, changeFetchURL }) => {
-	
+import { showDialog, hideDialog, requestAsyncFetch, changeFetchURL } from '../reducers/async_fetch_reducer';
+
+const Index = ({ fetch_result, is_showing_dialog, fetch_url, showDialog, hideDialog, requestAsyncFetch, changeFetchURL }) => {
+
 	const dialog_actions = (
 		<div>
 			<FlatButton label='Fetch' secondary={true} onTouchTap={requestAsyncFetch}/>
@@ -51,13 +51,11 @@ Index.propTypes = {
 	fetch_url: PropTypes.string.isRequired,
 	changeFetchURL: PropTypes.func.isRequired
 };
-	
-function mapStateToProps(state) {
-	return {
-		fetch_result: state.asyncFetchReducer.fetch_result,
-		is_showing_dialog: state.asyncFetchReducer.is_showing_dialog,
-		fetch_url: state.asyncFetchReducer.fetch_url
-	};
-}
 
-export default connect(mapStateToProps, actions)(Index);
+const mapStateToProps = (state) => ({
+	fetch_result: state.asyncFetchReducer.fetch_result,
+	is_showing_dialog: state.asyncFetchReducer.is_showing_dialog,
+	fetch_url: state.asyncFetchReducer.fetch_url
+});
+
+export default connect(mapStateToProps, { showDialog, hideDialog, requestAsyncFetch, changeFetchURL })(Index);
