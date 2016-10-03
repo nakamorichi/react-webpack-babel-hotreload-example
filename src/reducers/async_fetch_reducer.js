@@ -1,4 +1,4 @@
-import { takeEvery } from 'redux-saga';
+import { takeLatest } from 'redux-saga';
 import { call, put, select } from 'redux-saga/effects';
 
 // Redux action types
@@ -33,24 +33,24 @@ const fetchExample = (url) => {
 	});
 };
 
-const getFetchURL = (state) => state.asyncFetchReducer.fetch_url;
-
 // Saga workers
-export function* asyncFetchWorker(action) {
-	const fetch_url = yield select(getFetchURL);
+const asyncFetchWorker = function* (action) {
+	const fetch_url = action.url || (yield select((state) => state.asyncFetchReducer.fetch_url));
 	try {
-		let data = action.url || (yield call(fetchExample, fetch_url));
+		let data = yield call(fetchExample, fetch_url);
 		if (data && !(data instanceof Array)) data = [data];
 		yield put({ type: ASYNC_FETCH_SUCCEEDED, data });
 	} catch (error) {
 		yield put({ type: ASYNC_FETCH_FAILED, error: { message: error.message } });
 	}
-}
+};
 
-// Saga watchers
-export function* asyncFetchWatcher() {
-	yield* takeEvery(REQUEST_ASYNC_FETCH, asyncFetchWorker);
-}
+// Saga watchers (remember to fork these in the root Saga)
+export const asyncFetchWatchers = [
+	function* asyncFetchWatcher() {
+		yield* takeLatest(REQUEST_ASYNC_FETCH, asyncFetchWorker);
+	}
+];
 
 const initial_state = {
 	fetch_url: 'https://jsonplaceholder.typicode.com/users',
