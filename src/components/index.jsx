@@ -6,7 +6,7 @@ import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 
-import { showDialog, hideDialog, requestAsyncFetch, changeFetchURL } from '../reducers/async_fetch_reducer';
+import { showDialogAction, hideDialogAction, requestAsyncFetchAction, changeFetchURLAction } from '../reducers/async_fetch_reducer';
 
 const Index = ({ fetch_result, is_showing_dialog, fetch_url, showDialog, hideDialog, requestAsyncFetch, changeFetchURL }) => {
 
@@ -58,4 +58,9 @@ const mapStateToProps = (state) => ({
 	fetch_url: state.asyncFetchReducer.fetch_url
 });
 
-export default connect(mapStateToProps, { showDialog, hideDialog, requestAsyncFetch, changeFetchURL })(Index);
+export default connect(mapStateToProps, {
+	showDialog: showDialogAction,
+	hideDialog: hideDialogAction,
+	requestAsyncFetch: requestAsyncFetchAction,
+	changeFetchURL: changeFetchURLAction
+})(Index);

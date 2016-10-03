@@ -13,14 +13,14 @@ export const CHANGE_FETCH_URL = 'CHANGE_FETCH_URL';
 export const REQUEST_ASYNC_FETCH = 'REQUEST_ASYNC_FETCH';
 
 // Redux actions
-export const showDialog = () => ({ type: SHOW_DIALOG });
-export const hideDialog = () => ({ type: HIDE_DIALOG });
-export const requestAsyncFetch = (url) => {
+export const showDialogAction = () => ({ type: SHOW_DIALOG });
+export const hideDialogAction = () => ({ type: HIDE_DIALOG });
+export const requestAsyncFetchAction = (url) => {
 	const action = { type: REQUEST_ASYNC_FETCH };
 	if (typeof url === 'string') action['url'] = url;
 	return action;
 };
-export const changeFetchURL = (obj) => {
+export const changeFetchURLAction = (obj) => {
 	const new_fetch_url = obj.target.value || typeof(obj) === 'string' ? obj : '';
 	return { type: CHANGE_FETCH_URL, new_fetch_url };
 };

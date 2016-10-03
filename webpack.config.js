@@ -10,9 +10,9 @@ const FAIL_ON_ERROR = process.env.FAIL_ON_ERROR ? JSON.parse(process.env.FAIL_ON
 const OPTIMIZE = process.env.OPTIMIZE ? JSON.parse(process.env.OPTIMIZE) : NODE_ENV === 'production';
 
 const plugins = [
-	// Necessary for applying the correct environment everywhere
 	new Webpack.DefinePlugin({
 		'process.env': {
+			// Necessary for applying the correct environment everywhere
 			'NODE_ENV': JSON.stringify(NODE_ENV)
 		}
 	})
@@ -34,7 +34,7 @@ if (OPTIMIZE) {
 
 const conf = {
 	output: {
-		path: Path.join(__dirname, 'public', 'assets'),
+		path: Path.join(__dirname, 'public/assets'),
 		filename: 'bundle.js',
 		publicPath: '/assets/'
 	},
@@ -57,17 +57,17 @@ const conf = {
 if (MODE_DEV_SERVER) {
 	plugins.push(new Webpack.NamedModulesPlugin());
 	plugins.push(new Webpack.HotModuleReplacementPlugin());
-	conf.devtool = 'eval';
+	plugins.push(new Webpack.SourceMapDevToolPlugin({
+		filename: '[file].map'
+	}));
 	conf.entry = [
-		'babel-regenerator-runtime',
 		'react-hot-loader/patch', // this has to be the first loaded plugin in order to work properly!
 		'webpack-dev-server/client?http://0.0.0.0:' + DEV_SERVER_PORT, // WebpackDevServer host and port
 		'webpack/hot/only-dev-server', // 'only' prevents reload on syntax errors
-		'./src/app' // appʼs entry point
+		Path.join(__dirname, 'src/app') // appʼs entry point
 	];
 } else {
-	conf.devtool = 'source-map';
-	conf.entry = ['babel-regenerator-runtime', './src/app'];
+	conf.entry = [Path.join(__dirname, 'src/app')];
 }
 
 module.exports = conf;
