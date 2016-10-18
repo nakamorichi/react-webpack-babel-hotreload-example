@@ -26,8 +26,9 @@ Usage
 
 ### Development
 - Run Webpack development server: *npm start*
-- Point your browser to the server (e.g. http://localhost:7000) and begin programming
+- Point your browser to the server (e.g. http://localhost:7000) and begin development at ./src
 - There are also browser extensions, such as [React Developer Tools](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi) and [Redux DevTools](https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd?hl=ja), which can significantly boost React app development
 
 ### Production
 - Create minified bundle: *npm run bundle*
+- Serve ./public with your production server of choice
