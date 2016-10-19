@@ -22,7 +22,13 @@ const Index = ({ fetch_result, is_showing_dialog, fetch_url, showDialog, hideDia
 			<h2>An example of how to set up React, Redux, Saga, and routing together with Webpack, Babel, and hot reloading</h2>
 			<RaisedButton label='Test asynchronic fetch' primary={true} onTouchTap={showDialog}/>
 
-			<Dialog open={is_showing_dialog} title='Example async fetch using Saga' actions={dialog_actions} onRequestClose={hideDialog}>
+			<Dialog
+				open={is_showing_dialog}
+				title='Example async fetch using Saga'
+				actions={dialog_actions}
+				onRequestClose={hideDialog}
+				autoScrollBodyContent
+			>
 				<TextField
 					id='text-field-controlled'
 					value={fetch_url}
