@@ -4,13 +4,15 @@ import { connect } from 'react-redux';
 const RouteExample1 = ({ fetch_result }) => (
 	<div>
 		<h1>RouteExample1</h1>
-		<ul>
-			{fetch_result.map((obj, idx) => (
-				<li key={idx}>
-					<pre>{JSON.stringify(obj)}</pre>
-				</li>
-			))}
-		</ul>
+		<div style={{ overflow: 'auto' }}>
+			<ul>
+				{fetch_result.map((obj, idx) => (
+					<li key={idx}>
+						<pre>{JSON.stringify(obj)}</pre>
+					</li>
+				))}
+			</ul>
+		</div>
 	</div>
 );
 
