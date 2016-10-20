@@ -20,7 +20,7 @@ export const actions = {
 	}
 };
 
-export function menuReducer(state = initial_state, action) {
+export const menuReducer = (state = initial_state, action) => {
 	switch (action.type) {
 
 		case types.SHOW_MENU:
@@ -38,4 +38,4 @@ export function menuReducer(state = initial_state, action) {
 		default:
 			return state;
 	}
-}
+};
