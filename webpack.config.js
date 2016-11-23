@@ -24,7 +24,6 @@ if (!FAIL_ON_ERROR) {
 
 if (OPTIMIZE) {
 	plugins.push(new Webpack.optimize.OccurrenceOrderPlugin());
-	plugins.push(new Webpack.optimize.DedupePlugin());
 	plugins.push(new Webpack.optimize.UglifyJsPlugin({
 		compressor: {
 			warnings: false
@@ -42,7 +41,7 @@ const conf = {
 		loaders: [
 			{
 				test: /\.jsx?$/,
-				loaders: ['babel'],
+				loaders: ['babel-loader'],
 				exclude: /node_modules/
 			}
 		]
