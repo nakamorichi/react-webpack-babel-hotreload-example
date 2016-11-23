@@ -29,30 +29,30 @@
 		"bundle": "cross-env NODE_ENV=production webpack"
 	},
 	"devDependencies": {
-		"babel-core": "^6.16.0",
-		"babel-eslint": "^7.0.0",
-		"babel-loader": "^6.2.0",
-		"babel-preset-react": "^6.16.0",
-		"babel-preset-stage-2": "^6.16.0",
-		"babel-runtime": "^6.11.0",
-		"cross-env": "^2.0.0",
-		"eslint": "^3.7.0",
-		"eslint-plugin-react": "^6.3.0",
-		"nodemon": "^1.10.0",
-		"react-hot-loader": "^3.0.0-",
+		"babel-core": ">=6.16.0",
+		"babel-eslint": ">=7.0.0",
+		"babel-loader": ">=6.2.0",
+		"babel-preset-react": ">=6.16.0",
+		"babel-preset-stage-2": ">=6.16.0",
+		"babel-runtime": ">=6.11.0",
+		"cross-env": ">=2.0.0",
+		"eslint": ">=3.7.0",
+		"eslint-plugin-react": ">=6.3.0",
+		"nodemon": ">=1.10.0",
+		"react-hot-loader": ">=3.0.0-",
 		"uglify-js": "git://github.com/mishoo/UglifyJS2#harmony",
-		"webpack": "^2.1.0-",
-		"webpack-dev-server": "^2.1.0-"
+		"webpack": ">=2.1.0-",
+		"webpack-dev-server": ">=2.1.0-"
 	},
 	"dependencies": {
-		"material-ui": "^0.15.2",
-		"react": "^15.2.0",
-		"react-dom": "^15.2.0",
-		"react-redux": "^4.4.0",
-		"react-router": "^2.8.0",
-		"react-router-redux": "^4.0.0",
-		"react-tap-event-plugin": "^1.0.0",
-		"redux": "^3.6.0",
-		"redux-saga": "^0.12.0"
+		"material-ui": ">=0.15.2",
+		"react": ">=15.2.0",
+		"react-dom": ">=15.2.0",
+		"react-redux": ">=4.4.0",
+		"react-router": ">=2.8.0",
+		"react-router-redux": ">=4.0.0",
+		"react-tap-event-plugin": ">=1.0.0",
+		"redux": ">=3.6.0",
+		"redux-saga": ">=0.12.0"
 	}
 }
