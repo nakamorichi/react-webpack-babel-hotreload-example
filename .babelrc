@@ -3,10 +3,7 @@
 	"env": {
 		"development": {
 			"plugins": [
-				[
-					"transform-class-properties",
-					"react-hot-loader/babel"
-				]
+				["react-hot-loader/babel"]
 			]
 		}
 	}
