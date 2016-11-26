@@ -1,49 +1,54 @@
-import React, { PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
-import { connect } from 'react-redux';
 
 import AppBar from 'material-ui/AppBar';
 import Drawer from 'material-ui/Drawer';
 import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
 
-import { actions } from '../reducers/menu_reducer';
-
-const styles = {
-	container: {
-		textAlign: 'center'
+export default class Main extends Component {
+	static propTypes = {
+		children: PropTypes.node
 	}
-};
 
-const Main = ({ children, is_showing_menu, hideMenu, showMenu }) => (
-	<div style={styles.container}>
-		<Drawer open={is_showing_menu} docked={false} onRequestChange={hideMenu}>
-			<Menu onTouchTap={hideMenu}>
-				<MenuItem primaryText='Index' containerElement={<Link to='/' />}/>
-				<MenuItem primaryText='Route Example 1' containerElement={<Link to='/route_example_1' />}/>
-				<MenuItem primaryText='Route Example 2' containerElement={<Link to='/route_example_2' />}/>
-			</Menu>
-		</Drawer>
+	styles = {
+		container: {
+			textAlign: 'center'
+		}
+	}
 
-		<AppBar
-			title='react-webpack-babel-hotreload-example'
-			iconClassNameRight='muidocs-icon-navigation-expand-more'
-			onLeftIconButtonTouchTap={showMenu}
-		/>
+	state = {
+		is_showing_menu: false
+	}
 
-		{children}
-	</div>
-);
+	showMenu = () => {
+		this.setState({ is_showing_menu: true });
+	}
 
-Main.propTypes = {
-	children: PropTypes.node,
-	is_showing_menu: PropTypes.bool.isRequired,
-	showMenu: PropTypes.func.isRequired,
-	hideMenu: PropTypes.func.isRequired
-};
+	hideMenu = () => {
+		this.setState({ is_showing_menu: false });
+	}
 
-const mapStateToProps = (state) => ({
-	is_showing_menu: state.menuReducer.is_showing_menu
-});
+	render() {
+		const { children } = this.props;
+		return (
+			<div style={this.styles.container}>
+				<Drawer open={this.state.is_showing_menu} docked={false} onRequestChange={this.hideMenu}>
+					<Menu onTouchTap={this.hideMenu}>
+						<MenuItem primaryText='Index' containerElement={<Link to='/' />}/>
+						<MenuItem primaryText='Route Example 1' containerElement={<Link to='/route_example_1' />}/>
+						<MenuItem primaryText='Route Example 2' containerElement={<Link to='/route_example_2' />}/>
+					</Menu>
+				</Drawer>
 
-export default connect(mapStateToProps, actions)(Main);
+				<AppBar
+					title='react-webpack-babel-hotreload-example'
+					iconClassNameRight='muidocs-icon-navigation-expand-more'
+					onLeftIconButtonTouchTap={this.showMenu}
+				/>
+
+				{children}
+			</div>
+		);
+	}
+}

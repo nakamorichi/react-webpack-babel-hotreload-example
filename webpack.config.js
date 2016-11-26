@@ -35,7 +35,7 @@ const conf = {
 	output: {
 		path: Path.join(__dirname, 'public/assets'),
 		filename: 'bundle.js',
-		publicPath: '/assets/'
+		publicPath: '/assets'
 	},
 	module: {
 		loaders: [
@@ -47,7 +47,11 @@ const conf = {
 		]
 	},
 	resolve: {
-		extensions: ['.js', '.jsx']
+		extensions: ['.js', '.jsx'],
+		modules: [
+			'src',
+			'node_modules'
+		]
 	},
 	plugins: plugins
 };
