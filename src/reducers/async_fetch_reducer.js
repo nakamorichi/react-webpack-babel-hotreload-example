@@ -1,5 +1,4 @@
-import { takeLatest } from 'redux-saga';
-import { call, put, select } from 'redux-saga/effects';
+import { call, put, select, takeLatest } from 'redux-saga/effects';
 
 import http from 'utilities/http';
 
@@ -45,7 +44,7 @@ const asyncFetchWorker = function* (action) {
 // Saga watchers (remember to fork these in the root Saga)
 export const asyncFetchWatchers = [
 	function* asyncFetchWatcher() {
-		yield* takeLatest(REQUEST_ASYNC_FETCH, asyncFetchWorker);
+		yield takeLatest(REQUEST_ASYNC_FETCH, asyncFetchWorker);
 	}
 ];
 
