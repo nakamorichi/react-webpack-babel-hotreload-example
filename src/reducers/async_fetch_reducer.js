@@ -42,11 +42,9 @@ const asyncFetchWorker = function* (action) {
 };
 
 // Saga watchers (remember to fork these in the root Saga)
-export const asyncFetchWatchers = [
-	function* asyncFetchWatcher() {
-		yield takeLatest(REQUEST_ASYNC_FETCH, asyncFetchWorker);
-	}
-];
+export const asyncFetchWatchers = function* () {
+	yield takeLatest(REQUEST_ASYNC_FETCH, asyncFetchWorker);
+};
 
 export const asyncFetchReducer = (state = initial_state, action) => {
 	switch (action.type) {
