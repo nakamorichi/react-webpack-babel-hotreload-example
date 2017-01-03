@@ -11,6 +11,6 @@ export const rootReducer = combineReducers({
 
 export const rootSaga = function* () {
 	yield [
-		fork(asyncFetchWatchers)
+		asyncFetchWatchers()
 	];
 };
