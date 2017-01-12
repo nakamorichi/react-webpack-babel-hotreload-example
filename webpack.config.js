@@ -24,7 +24,6 @@ const plugins = [
 		name: 'vendor'
 	}),
 	new HtmlWebpackPlugin({
-		hash: true,
 		filename: 'index.html',
 		template: 'src/index.html'
 	})
@@ -46,7 +45,7 @@ const conf = {
 	output: {
 		path: Path.join(__dirname, 'public/assets'),
 		filename: '[name].js',
-		publicPath: '/assets'
+		publicPath: '/'
 	},
 	module: {
 		loaders: [
@@ -91,7 +90,7 @@ if (MODE_DEV_SERVER) {
 } else {
 	plugins.push(new CleanWebpackPlugin(['public/assets'], {
 		root: Path.resolve(__dirname),
-		verbose: true, 
+		verbose: true,
 		dry: false,
 		exclude: ['.gitignore']
 	}));
