@@ -1,7 +1,11 @@
 'use strict';
 
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const Path = require('path');
 const Webpack = require('webpack');
+
+const pkg = require('./package.json');
 
 const DEV_SERVER_PORT = process.env.PORT = process.env.PORT || 7000;
 const NODE_ENV = process.env.NODE_ENV ? process.env.NODE_ENV.toLowerCase() : 'development';
@@ -15,6 +19,14 @@ const plugins = [
 			// Necessary for applying the correct environment everywhere
 			'NODE_ENV': JSON.stringify(NODE_ENV)
 		}
+	}),
+	new Webpack.optimize.CommonsChunkPlugin({
+		name: 'vendor'
+	}),
+	new HtmlWebpackPlugin({
+		hash: true,
+		filename: 'index.html',
+		template: 'src/index.html'
 	})
 ];
 
@@ -23,7 +35,6 @@ if (!FAIL_ON_ERROR) {
 }
 
 if (OPTIMIZE) {
-	plugins.push(new Webpack.optimize.OccurrenceOrderPlugin());
 	plugins.push(new Webpack.optimize.UglifyJsPlugin({
 		compressor: {
 			warnings: false
@@ -34,7 +45,7 @@ if (OPTIMIZE) {
 const conf = {
 	output: {
 		path: Path.join(__dirname, 'public/assets'),
-		filename: 'bundle.js',
+		filename: '[name].js',
 		publicPath: '/assets'
 	},
 	module: {
@@ -63,14 +74,32 @@ if (MODE_DEV_SERVER) {
 	plugins.push(new Webpack.SourceMapDevToolPlugin({
 		filename: '[file].map'
 	}));
-	conf.entry = [
-		'react-hot-loader/patch', // this has to be the first loaded plugin in order to work properly!
-		'webpack-dev-server/client?http://0.0.0.0:' + DEV_SERVER_PORT, // WebpackDevServer host and port
-		'webpack/hot/only-dev-server', // 'only' prevents reload on syntax errors
-		Path.join(__dirname, 'src/app') // appʼs entry point
-	];
+	conf.performance = {
+		hints: false
+	};
+	conf.entry = {
+		main: [
+			Path.join(__dirname, 'src/app')
+		],
+		vendor: [
+			'react-hot-loader/patch', // this has to be the first loaded plugin in order to work properly!
+			'webpack-dev-server/client?http://0.0.0.0:' + DEV_SERVER_PORT, // WebpackDevServer host and port
+			'webpack/hot/only-dev-server', // 'only' prevents reload on syntax errors
+			Path.join(__dirname, 'src/app') // appʼs entry point
+		]
+	};
 } else {
-	conf.entry = [Path.join(__dirname, 'src/app')];
+	plugins.push(new CleanWebpackPlugin(['public/assets'], {
+		root: Path.resolve(__dirname),
+		verbose: true, 
+		dry: false,
+		exclude: ['.gitignore']
+	}));
+	conf.output.filename = '[name]-[chunkhash].js';
+	conf.entry = {
+		main: Path.join(__dirname, 'src/app'),
+		vendor: Object.keys(pkg.dependencies)
+	};
 }
 
 module.exports = conf;
