@@ -1,8 +1,12 @@
 {
 	"name": "react-webpack-babel-hotreload-example",
-	"version": "1.4.0",
+	"version": "1.5.0",
 	"description": "Example application for setting up React, React Router, Redux, Material-UI, Webpack, Babel, and React Hot Loader",
-	"author": "Petri Kivikangas <petri.kivikangas@protonmail.com>",
+	"author": {
+		"name": "Petri Kivikangas",
+		"email": "petri.kivikangas@protonmail.com",
+		"url": "https://github.com/Kitanotori"
+	},
 	"keywords": [
 		"example",
 		"hot reload",
@@ -24,6 +28,9 @@
 		"url": "https://github.com/Kitanotori/react-webpack-babel-hotreload-example/issues"
 	},
 	"license": "Apache-2.0",
+	"engines": {
+		"node": "6.9.x"
+	},
 	"scripts": {
 		"start": "cross-env NODE_ENV=development nodemon --watch webpack-dev-server.js --watch webpack.config.js webpack-dev-server.js",
 		"bundle": "cross-env NODE_ENV=production webpack"
@@ -45,8 +52,8 @@
 		"nodemon": ">=1.10.0",
 		"react-hot-loader": ">=3.0.0-",
 		"uglify-js": "git://github.com/mishoo/UglifyJS2#harmony",
-		"webpack": ">=2.1.0-",
-		"webpack-dev-server": ">=2.1.0-"
+		"webpack": ">=2.2.0-",
+		"webpack-dev-server": ">=2.2.0-"
 	},
 	"dependencies": {
 		"material-ui": ">=0.15.2",
