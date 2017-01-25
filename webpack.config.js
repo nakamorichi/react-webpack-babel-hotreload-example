@@ -4,6 +4,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const Path = require('path');
 const Webpack = require('webpack');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 const pkg = require('./package.json');
 
@@ -56,7 +57,7 @@ const conf = {
 };
 
 if (IN_DEV_MODE) { // development mode (webpack-dev-server)
-	plugins.push(new Webpack.NoErrorsPlugin());
+	plugins.push(new Webpack.NoEmitOnErrorsPlugin());
 	plugins.push(new Webpack.NamedModulesPlugin());
 	plugins.push(new Webpack.HotModuleReplacementPlugin());
 	plugins.push(new Webpack.SourceMapDevToolPlugin({
@@ -78,7 +79,7 @@ if (IN_DEV_MODE) { // development mode (webpack-dev-server)
 		]
 	};
 } else { // production mode (bundling)
-	plugins.push(new Webpack.optimize.UglifyJsPlugin({
+	plugins.push(new UglifyJsPlugin({
 		compressor: {
 			warnings: false
 		}
