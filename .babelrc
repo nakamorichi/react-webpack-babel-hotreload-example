@@ -8,6 +8,12 @@
 				"transform-export-extensions",
 				"react-hot-loader/babel"
 			]
+		},
+		"production": {
+			"plugins": [
+				"transform-class-properties",
+				"transform-export-extensions"
+			]
 		}
 	}
 }
