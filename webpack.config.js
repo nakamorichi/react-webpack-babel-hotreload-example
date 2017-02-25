@@ -25,7 +25,7 @@ const plugins = [
 		name: 'vendor'
 	}),
 	new HtmlWebpackPlugin({
-		filename: 'index.html',
+		filename: '../index.html',
 		template: 'src/index.html'
 	})
 ];
@@ -35,13 +35,13 @@ const conf = {
 	output: {
 		path: Path.join(__dirname, 'public/assets'),
 		filename: '[name].js',
-		publicPath: '/'
+		publicPath: '/assets'
 	},
 	module: {
-		loaders: [
+		rules: [
 			{
 				test: /\.jsx?$/,
-				loaders: ['babel-loader'],
+				use: ['babel-loader'],
 				exclude: /node_modules/
 			}
 		]
@@ -85,7 +85,7 @@ if (IN_DEV_MODE) { // development mode (webpack-dev-server)
 		}
 	}));
 
-	plugins.push(new CleanWebpackPlugin(['public/assets'], {
+	plugins.push(new CleanWebpackPlugin(['public'], {
 		root: Path.resolve(__dirname),
 		verbose: true,
 		dry: false,
