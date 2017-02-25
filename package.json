@@ -29,11 +29,25 @@
 	},
 	"license": "Apache-2.0",
 	"engines": {
-		"node": "6.9.x"
+		"node": ">=6.9.0"
 	},
+	"moduleRoots": [
+		"src"
+	],
 	"scripts": {
 		"start": "cross-env NODE_ENV=development NODE_PRESERVE_SYMLINKS=1 nodemon --watch webpack-dev-server.js --watch webpack.config.js webpack-dev-server.js",
 		"bundle": "cross-env NODE_ENV=production NODE_PRESERVE_SYMLINKS=1 webpack"
+	},
+	"dependencies": {
+		"material-ui": ">=0.15.2",
+		"react": ">=15.2.0",
+		"react-dom": ">=15.2.0",
+		"react-redux": ">=4.4.0",
+		"react-router": ">=2.8.0",
+		"react-router-redux": ">=4.0.0",
+		"react-tap-event-plugin": ">=1.0.0",
+		"redux": ">=3.6.0",
+		"redux-saga": ">=0.12.0"
 	},
 	"devDependencies": {
 		"babel-core": ">=6.22.0",
@@ -48,24 +62,16 @@
 		"clean-webpack-plugin": ">=0.1.0",
 		"cross-env": ">=2.0.0",
 		"eslint": ">=3.7.0",
+		"eslint-import-resolver-webpack": ">=0.8.0",
+		"eslint-plugin-import": ">=2.2.0",
+		"eslint-plugin-node": ">=4.1.0",
 		"eslint-plugin-react": ">=6.3.0",
 		"html-webpack-plugin": ">=2.26.0",
 		"nodemon": ">=1.10.0",
 		"react-hot-loader": ">=3.0.0-",
 		"uglify-js": "git://github.com/mishoo/UglifyJS2#harmony",
-		"uglifyjs-webpack-plugin": ">=0.1.0",
+		"uglifyjs-webpack-plugin": ">=0.2.0",
 		"webpack": ">=2.2.0",
 		"webpack-dev-server": ">=2.2.0"
-	},
-	"dependencies": {
-		"material-ui": ">=0.15.2",
-		"react": ">=15.2.0",
-		"react-dom": ">=15.2.0",
-		"react-redux": ">=4.4.0",
-		"react-router": ">=2.8.0",
-		"react-router-redux": ">=4.0.0",
-		"react-tap-event-plugin": ">=1.0.0",
-		"redux": ">=3.6.0",
-		"redux-saga": ">=0.12.0"
 	}
 }

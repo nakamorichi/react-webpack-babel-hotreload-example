@@ -3,8 +3,15 @@
 		"es6": true,
 		"node": true
 	},
-	"eslintignore": ["node_modules"],
-	"extends": "eslint:recommended",
+	"extends": [
+		"eslint:recommended",
+		"plugin:node/recommended"
+	],
+	"parserOptions": {
+		"ecmaVersion": 6,
+		"sourceType": "script"
+	},
+	"plugins": ["node"],
 	"rules": {
 		"brace-style": ["error", "1tbs", { "allowSingleLine": true }],
 		"comma-dangle": ["warn", "never"],
@@ -12,10 +19,12 @@
 		"indent": ["error", "tab", { "SwitchCase": 1 }],
 		"linebreak-style": ["error", "unix"],
 		"no-console": 0,
+		"no-process-exit": "warn",
 		"no-unused-vars": "warn",
 		"no-var": "error",
 		"quotes": ["error", "single"],
 		"semi": ["error", "always"],
-		"space-before-function-paren": ["error", { "anonymous": "always", "named": "never" }]
+		"space-before-function-paren": ["error", { "anonymous": "always", "named": "never" }],
+		"node/no-unpublished-require": "warn"
 	}
 }

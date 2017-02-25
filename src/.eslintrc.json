@@ -3,18 +3,22 @@
 		"browser": true,
 		"es6": true
 	},
-	"eslintignore": ["node_modules"],
-	"extends": ["eslint:recommended", "plugin:react/recommended"],
+	"extends": [
+		"eslint:recommended",
+		"plugin:react/recommended",
+		"plugin:import/errors",
+		"plugin:import/warnings"
+	],
 	"parser": "babel-eslint",
 	"parserOptions": {
-		"ecmaVersion": 6,
+		"ecmaVersion": 8,
 		"ecmaFeatures": {
 			"experimentalObjectRestSpread": true,
 			"jsx": true
 		},
 		"sourceType": "module"
 	},
-	"plugins": ["react"],
+	"plugins": ["react", "import"],
 	"rules": {
 		"brace-style": ["error", "1tbs", { "allowSingleLine": true }],
 		"comma-dangle": ["warn", "never"],
@@ -30,6 +34,10 @@
 		"react/jsx-indent": ["error", "tab"],
 		"semi": ["error", "always"],
 		"space-before-function-paren": ["error", { "anonymous": "always", "named": "never" }],
-		"yield-star-spacing": ["error", { "before": false, "after": true }]
+		"yield-star-spacing": ["error", { "before": false, "after": true }],
+		"node/no-unsupported-features": "off"
+	},
+	"settings": {
+		"import/resolver": "webpack"
 	}
 }
