@@ -25,7 +25,7 @@ const plugins = [
 		name: 'vendor'
 	}),
 	new HtmlWebpackPlugin({
-		filename: '../index.html',
+		filename: 'index.html',
 		template: 'src/index.html'
 	})
 ];
@@ -33,9 +33,9 @@ const plugins = [
 // common configuration
 const conf = {
 	output: {
-		path: Path.join(__dirname, 'public/assets'),
+		path: Path.join(__dirname, 'public'),
 		filename: '[name].js',
-		publicPath: '/assets'
+		publicPath: '/'
 	},
 	module: {
 		rules: [
