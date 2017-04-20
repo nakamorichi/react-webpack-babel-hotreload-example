@@ -26,7 +26,7 @@ const configureStore = (initial_state, middleware) => {
 
 	if (module.hot) {
 		// Enable Webpack hot module replacement for reducers
-		module.hot.accept('reducers', () => {
+		module.hot.accept('./reducers', () => {
 			store.replaceReducer(rootReducer);
 		});
 	}
@@ -52,7 +52,7 @@ const root = document.getElementById('root');
 render(<Root store={store} history={history}/>, root);
 
 if (module.hot) {
-	module.hot.accept('components/root', () => {
+	module.hot.accept('./components/root', () => {
 		render(
 			<AppContainer>
 				<Root store={store} history={history}/>

@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Route } from 'react-router-dom';
 
 import Index from 'components/index';
@@ -13,9 +12,5 @@ const Routes = () => (
 		<Route path='/route_example_2' component={RouteExample2}/>
 	</div>
 );
-
-Routes.propTypes = {
-	store: PropTypes.object
-};
 
 export default Routes;
