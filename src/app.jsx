@@ -1,12 +1,12 @@
 // React
 import React from 'react';
 import { render } from 'react-dom';
-import { browserHistory } from 'react-router';
+import createHistory from 'history/createBrowserHistory';
 import { AppContainer } from 'react-hot-loader';
 
 // Redux
 import { applyMiddleware, compose, createStore } from 'redux';
-import { syncHistoryWithStore } from 'react-router-redux';
+import { routerMiddleware } from 'react-router-redux';
 import createSagaMiddleware from 'redux-saga';
 
 import injectTapEventPlugin from 'react-tap-event-plugin';
@@ -15,18 +15,18 @@ import { rootReducer, rootSaga } from './reducers';
 import Root from './components/root';
 
 const configureStore = (initial_state, middleware) => {
+	const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 	const store = createStore(
 		rootReducer,
 		initial_state,
-		compose(
-			applyMiddleware(...middleware),
-			window.devToolsExtension ? window.devToolsExtension() : x => x
+		composeEnhancers(
+			applyMiddleware(...middleware)
 		)
 	);
 
 	if (module.hot) {
 		// Enable Webpack hot module replacement for reducers
-		module.hot.accept('./reducers', () => {
+		module.hot.accept('reducers', () => {
 			store.replaceReducer(rootReducer);
 		});
 	}
@@ -34,11 +34,12 @@ const configureStore = (initial_state, middleware) => {
 	return store;
 };
 
-const sagaMiddleware = createSagaMiddleware();
 const initial_state = {};
-const middleware = [sagaMiddleware];
+const history = createHistory();
+const reactRouterReduxMiddleware = routerMiddleware(history);
+const sagaMiddleware = createSagaMiddleware();
+const middleware = [sagaMiddleware, reactRouterReduxMiddleware];
 const store = configureStore(initial_state, middleware);
-const history = syncHistoryWithStore(browserHistory, store);
 
 sagaMiddleware.run(rootSaga);
 
@@ -51,7 +52,7 @@ const root = document.getElementById('root');
 render(<Root store={store} history={history}/>, root);
 
 if (module.hot) {
-	module.hot.accept('./components/root', () => {
+	module.hot.accept('components/root', () => {
 		render(
 			<AppContainer>
 				<Root store={store} history={history}/>

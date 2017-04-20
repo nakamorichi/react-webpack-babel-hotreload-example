@@ -1,7 +1,8 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { requestAsyncFetchAction } from '../reducers/async_fetch_reducer';
+import { requestAsyncFetchAction } from 'reducers/async_fetch_reducer';
 
 class RouteExample2 extends Component {
 	static propTypes = {
@@ -10,7 +11,7 @@ class RouteExample2 extends Component {
 	}
 
 	componentDidMount() {
-		this.props.requestAsyncFetch();
+		this.props.requestAsyncFetch('https://jsonplaceholder.typicode.com/posts/1');
 	}
 
 	render() {
