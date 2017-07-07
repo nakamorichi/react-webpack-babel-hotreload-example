@@ -1,6 +1,6 @@
 {
 	"name": "react-webpack-babel-hotreload-example",
-	"version": "1.5.1",
+	"version": "1.6.0",
 	"description": "Example application for setting up React, React Router, Redux, Material-UI, Webpack, Babel, and React Hot Loader",
 	"author": {
 		"name": "Petri Kivikangas",
@@ -29,7 +29,7 @@
 	},
 	"license": "Apache-2.0",
 	"engines": {
-		"node": ">=6.9.0"
+		"node": ">=8.0.0"
 	},
 	"moduleRoots": [
 		"src"
