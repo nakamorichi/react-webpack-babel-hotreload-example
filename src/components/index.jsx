@@ -13,18 +13,17 @@ class Index extends Component {
 	// Define external properties
 	static propTypes = {
 		// Properties from Redux state
-		children: PropTypes.node,
 		fetch_url: PropTypes.string.isRequired,
-		fetch_result: PropTypes.array.isRequired,
+		fetch_result: PropTypes.arrayOf(PropTypes.any).isRequired,
 
 		// Redux reducer actions
 		requestAsyncFetch: PropTypes.func.isRequired,
-		changeFetchURL: PropTypes.func.isRequired
+		changeFetchURL: PropTypes.func.isRequired,
 	}
 
 	// Initialize internal component instance state
 	state = {
-		is_showing_dialog: false
+		is_showing_dialog: false,
 	}
 
 	// Component methods
@@ -40,15 +39,15 @@ class Index extends Component {
 		const { fetch_result, fetch_url, changeFetchURL, requestAsyncFetch } = this.props;
 		const dialog_actions = (
 			<div>
-				<FlatButton label='Fetch' secondary={true} onTouchTap={requestAsyncFetch}/>
-				<FlatButton label='Close' secondary={true} onTouchTap={this.hideDialog}/>
+				<FlatButton label='Fetch' secondary={true} onTouchTap={requestAsyncFetch} />
+				<FlatButton label='Close' secondary={true} onTouchTap={this.hideDialog} />
 			</div>
 		);
 
 		return (
 			<div>
 				<h2>An example of how to set up React, Redux, Saga, and routing together with Webpack, Babel, and hot reloading</h2>
-				<RaisedButton label='Test asynchronic fetch' primary={true} onTouchTap={this.showDialog}/>
+				<RaisedButton label='Test asynchronic fetch' primary={true} onTouchTap={this.showDialog} />
 
 				<Dialog open={this.state.is_showing_dialog} title='Example async fetch using Saga' actions={dialog_actions} onRequestClose={this.hideDialog}>
 					<TextField
@@ -59,7 +58,7 @@ class Index extends Component {
 					/>
 					<ul>
 						{fetch_result.map((obj, idx) => (
-							<li key={idx}>
+							<li>
 								<pre>{JSON.stringify(obj)}</pre>
 							</li>
 						))}
@@ -71,13 +70,13 @@ class Index extends Component {
 }
 
 // Properties fetched from application-wide Redux state
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
 	fetch_result: state.asyncFetchReducer.fetch_result,
-	fetch_url: state.asyncFetchReducer.fetch_url
+	fetch_url: state.asyncFetchReducer.fetch_url,
 });
 
 // Redux actions connected to the component
 export default connect(mapStateToProps, {
 	requestAsyncFetch: requestAsyncFetchAction,
-	changeFetchURL: changeFetchURLAction
+	changeFetchURL: changeFetchURLAction,
 })(Index);

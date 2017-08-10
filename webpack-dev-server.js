@@ -16,13 +16,13 @@ new WebpackDevServer(Webpack(WebpackConfig), {
 	publicPath: WebpackConfig.output.publicPath,
 	stats: {
 		colors: true,
-		chunks: false
-	}
+		chunks: false,
+	},
 }).listen(DEV_SERVER_PORT, HOSTNAME, (err, result) => {
 	if (err) {
-		return console.log(err);
+		console.log(err);
+	} else {
+		console.log(`[${process.pid}] Webpack development server running at http://${HOSTNAME}:${DEV_SERVER_PORT}`);
+		console.log(`[${process.pid}] NODE_ENV=[${process.env.NODE_ENV}]`);
 	}
-
-	console.log(`[${process.pid}] Webpack development server running at http://${HOSTNAME}:${DEV_SERVER_PORT}`);
-	console.log(`[${process.pid}] NODE_ENV=[${process.env.NODE_ENV}]`);
 });

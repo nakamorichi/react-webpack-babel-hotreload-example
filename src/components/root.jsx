@@ -14,15 +14,15 @@ const Root = ({ store, history }) => (
 	<Provider store={store}>
 		<MuiThemeProvider muiTheme={muiTheme}>
 			<ConnectedRouter history={history}>
-				<Main/>
+				<Main />
 			</ConnectedRouter>
 		</MuiThemeProvider>
 	</Provider>
 );
 
 Root.propTypes = {
-	store: PropTypes.object.isRequired,
-	history: PropTypes.object.isRequired
+	store: PropTypes.objectOf(PropTypes.any).isRequired,
+	history: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
 export default Root;

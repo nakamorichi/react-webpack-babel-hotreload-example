@@ -7,9 +7,9 @@ import RouteExample2 from 'components/route_example_2';
 
 const Routes = () => (
 	<div>
-		<Route exact path='/' component={Index}/>
-		<Route path='/route_example_1' component={RouteExample1}/>
-		<Route path='/route_example_2' component={RouteExample2}/>
+		<Route exact path='/' component={Index} />
+		<Route path='/route_example_1' component={RouteExample1} />
+		<Route path='/route_example_2' component={RouteExample2} />
 	</div>
 );
 

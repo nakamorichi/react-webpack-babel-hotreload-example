@@ -6,8 +6,8 @@ import { requestAsyncFetchAction } from 'reducers/async_fetch_reducer';
 
 class RouteExample2 extends Component {
 	static propTypes = {
-		fetch_result: PropTypes.array.isRequired,
-		requestAsyncFetch: PropTypes.func.isRequired
+		fetch_result: PropTypes.arrayOf(PropTypes.any).isRequired,
+		requestAsyncFetch: PropTypes.func.isRequired,
 	}
 
 	componentDidMount() {
@@ -21,7 +21,7 @@ class RouteExample2 extends Component {
 				<h1>RouteExample2</h1>
 				<ul>
 					{fetch_result.map((obj, idx) => (
-						<li key={idx}>
+						<li>
 							<pre>{JSON.stringify(obj)}</pre>
 						</li>
 					))}
@@ -31,13 +31,13 @@ class RouteExample2 extends Component {
 	}
 }
 
-const mapStateToProps = (state) => ({
-	fetch_result: state.asyncFetchReducer.fetch_result
+const mapStateToProps = state => ({
+	fetch_result: state.asyncFetchReducer.fetch_result,
 });
 
 export default connect(
 	mapStateToProps,
 	{
-		requestAsyncFetch: requestAsyncFetchAction
-	}
+		requestAsyncFetch: requestAsyncFetchAction,
+	},
 )(RouteExample2);

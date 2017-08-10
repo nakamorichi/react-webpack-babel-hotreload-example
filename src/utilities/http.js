@@ -1,8 +1,8 @@
 export default (url, method = 'GET', payload, headers) => {
 	const options = {
-		method: method,
+		method,
 		redirect: 'follow',
-		credentials: 'same-origin'
+		credentials: 'same-origin',
 	};
 
 	if (payload instanceof File) {
@@ -11,8 +11,8 @@ export default (url, method = 'GET', payload, headers) => {
 		options.body = data;
 	} else {
 		options.headers = new Headers({
-			'Accept': 'application/json',
-			'Content-Type': 'application/json'
+			Accept: 'application/json',
+			'Content-Type': 'application/json',
 		});
 
 		// Override default headers
@@ -25,12 +25,16 @@ export default (url, method = 'GET', payload, headers) => {
 
 	const request = new Request(url, options);
 
-	return fetch(request).then(response => {
+	return fetch(request).then((response) => {
 		const contentType = response.headers.get('Content-Type');
 		if (contentType && contentType.indexOf('application/json') !== -1) {
 			return response.json();
-		} else {
-			throw { type: 'ContentTypeException', message: 'Expected Content-Type: application/json; was: ' + contentType, status: response.status };
 		}
+		const err = {
+			type: 'ContentTypeException',
+			message: `Expected Content-Type: application/json; was: ${contentType}`,
+			status: response.status,
+		};
+		throw err;
 	});
 };
