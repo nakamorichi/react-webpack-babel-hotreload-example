@@ -1,7 +1,7 @@
 module.exports = {
 	env: {
 		browser: true,
-		node: false,
+		node: true,
 	},
 	extends: [
 		'eslint:recommended',
@@ -57,6 +57,7 @@ module.exports = {
 		],
 		'no-console': 1,
 		'no-tabs': 0,
+		'no-underscore-dangle': ['error', { allow: ['__REDUX_DEVTOOLS_EXTENSION_COMPOSE__'] }],
 		'no-unused-vars': [
 			'error',
 			{

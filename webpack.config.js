@@ -1,9 +1,10 @@
 'use strict';
 
-const CleanWebpackPlugin = require('clean-webpack-plugin');
+const Fs = require('fs');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const Path = require('path');
 const Webpack = require('webpack');
+const WebpackOnBuildPlugin = require('on-build-webpack');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
 const pkg = require('./package.json');
@@ -13,6 +14,7 @@ process.env.PORT = process.env.PORT || 7000;
 const DEV_SERVER_PORT = process.env.PORT;
 const NODE_ENV = process.env.NODE_ENV ? process.env.NODE_ENV.toLowerCase() : 'development';
 const IN_DEV_MODE = NODE_ENV === 'development';
+const BUNDLE_OUTPUT_PATH = Path.resolve(__dirname, 'public');
 
 // common plugins
 const plugins = [
@@ -39,8 +41,7 @@ const plugins = [
 const conf = {
 	target: 'web',
 	output: {
-		path: Path.join(__dirname, 'public'),
-		filename: '[name].js',
+		path: BUNDLE_OUTPUT_PATH,
 		publicPath: '/',
 	},
 	module: {
@@ -76,9 +77,10 @@ if (IN_DEV_MODE) { // development mode (webpack-dev-server)
 	conf.performance = {
 		hints: false,
 	};
+	conf.output.filename = '[name].js';
 	conf.entry = {
 		main: [
-			Path.join(__dirname, 'src/app'),
+			Path.resolve(__dirname, 'src/app'),
 		],
 		vendor: [
 			'react-hot-loader/patch', // this has to be the first loaded plugin in order to work properly!
@@ -90,25 +92,35 @@ if (IN_DEV_MODE) { // development mode (webpack-dev-server)
 	console.log(`Production mode: NODE_ENV=${NODE_ENV}`);
 	plugins.push(new UglifyJSPlugin({
 		uglifyOptions: {
-			compress: true,
+			compress: false, // NOTE: If not set to false, output invalid as of plugin version 1.0.0-beta.2
 			ecma: 8,
-			ie8: false,
-			mangle: true,
-			warnings: false,
+			// mangle: {},
+			// warnings: true,
 		},
 	}));
 
-	plugins.push(new CleanWebpackPlugin(['public'], {
-		root: Path.resolve(__dirname),
-		verbose: true,
-		dry: false,
-		exclude: ['.gitignore'],
+	plugins.push(new WebpackOnBuildPlugin(stats => {
+		const newlyCreatedAssets = stats.compilation.assets;
+		const unlinked = [];
+		console.log('Removing old assets...');
+		Fs.readdir(BUNDLE_OUTPUT_PATH, (error, files) => {
+			files.forEach(file => {
+				// deletes all but the newly generated assets and .gitignore from ./public
+				if (!newlyCreatedAssets[file] && file !== '.gitignore') {
+					Fs.unlinkSync(Path.resolve(BUNDLE_OUTPUT_PATH, file));
+				}
+			});
+			if (unlinked.length > 0) {
+				console.log('Removed old assets: ', unlinked);
+			} else {
+				console.log('No old assets to remove');
+			}
+		});
 	}));
 
 	conf.output.filename = '[name]-[chunkhash].js';
-	conf.output.publicPath = '/';
 	conf.entry = {
-		main: Path.join(__dirname, 'src/app'),
+		main: Path.resolve(__dirname, 'src/app'),
 	};
 }
 

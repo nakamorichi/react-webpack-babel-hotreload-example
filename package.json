@@ -38,11 +38,15 @@
 	"scripts": {
 		"start": "http-server -p 8000",
 		"start:dev": "cross-env NODE_ENV=development nodemon --watch webpack-dev-server.js --watch webpack.config.js webpack-dev-server.js",
-		"build": "npm run lint && cross-env NODE_ENV=production webpack",
-		"lint": "eslint '*.js' 'src/**/*.js'"
+		"build": "npm run lint && npm run build:raw",
+		"build:raw": "cross-env NODE_ENV=production webpack",
+		"build:docker": "npm install && npm run build && npm run deps:prod && npm run docker && npm install",
+		"deps:prod": "rm -rf node_modules && npm install --production",
+		"docker": "docker build -t kitanotori/react-webpack-babel-hotreload-example .",
+		"lint": "eslint \"*.js\" \"src/**/*.js{,x}\""
 	},
 	"dependencies": {
-		"http-server": "^0.10.0",
+		"history": "^4.6.3",
 		"lodash": "^4.17.4",
 		"material-ui": "^0.18.7",
 		"prop-types": "^15.5.10",
@@ -66,7 +70,6 @@
 		"babel-preset-react": ">=6.22.0",
 		"babel-preset-stage-3": ">=6.22.0",
 		"babel-runtime": "^6.25.0",
-		"clean-webpack-plugin": ">=0.1.0",
 		"cross-env": "^5.0.5",
 		"eslint": "^4.4.1",
 		"eslint-config-airbnb": "^15.1.0",
@@ -77,9 +80,13 @@
 		"eslint-plugin-react": "^7.2.0",
 		"html-webpack-plugin": "^2.30.1",
 		"nodemon": ">=1.10.0",
-		"react-hot-loader": ">=3.0.0-",
+		"on-build-webpack": "^0.1.0",
+		"react-hot-loader": "^3.0.0-beta.7",
 		"uglifyjs-webpack-plugin": "^1.0.0-",
 		"webpack": "^3.5.2",
 		"webpack-dev-server": "^2.7.1"
+	},
+	"optionalDependencies": {
+		"http-server": "^0.10.0"
 	}
 }
