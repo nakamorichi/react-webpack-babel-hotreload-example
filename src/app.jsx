@@ -2,7 +2,6 @@
 import React from 'react';
 import { render } from 'react-dom';
 import createHistory from 'history/createBrowserHistory';
-import { AppContainer } from 'react-hot-loader';
 
 // Redux
 import { applyMiddleware, compose, createStore } from 'redux';
@@ -20,8 +19,8 @@ const configureStore = (initial_state, middleware) => {
 		rootReducer,
 		initial_state,
 		composeEnhancers(
-			applyMiddleware(...middleware)
-		)
+			applyMiddleware(...middleware),
+		),
 	);
 
 	if (module.hot) {
@@ -49,13 +48,15 @@ injectTapEventPlugin();
 
 const root = document.getElementById('root');
 
-render(<Root store={store} history={history}/>, root);
+render(<Root store={store} history={history} />, root);
 
 if (module.hot) {
+	// eslint-disable-next-line
+	const AppContainer = require('react-hot-loader').AppContainer;
 	module.hot.accept('components/root', () => {
 		render(
 			<AppContainer>
-				<Root store={store} history={history}/>
+				<Root store={store} history={history} />
 			</AppContainer>, root);
 	});
 }

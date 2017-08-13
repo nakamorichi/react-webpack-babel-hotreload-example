@@ -5,11 +5,11 @@ import { asyncFetchReducer, asyncFetchWatchers } from 'reducers/async_fetch_redu
 
 export const rootReducer = combineReducers({
 	routing: routerReducer,
-	asyncFetchReducer
+	asyncFetchReducer,
 });
 
 export const rootSaga = function* () {
 	yield [
-		asyncFetchWatchers()
+		asyncFetchWatchers(),
 	];
 };

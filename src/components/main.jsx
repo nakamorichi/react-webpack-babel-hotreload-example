@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 import AppBar from 'material-ui/AppBar';
@@ -12,14 +11,14 @@ import Routes from 'components/routes';
 export default class Main extends Component {
 	static propTypes = {}
 
-	styles = {
-		container: {
-			textAlign: 'center'
-		}
+	state = {
+		is_showing_menu: false,
 	}
 
-	state = {
-		is_showing_menu: false
+	styles = {
+		container: {
+			textAlign: 'center',
+		},
 	}
 
 	showMenu = () => {
@@ -35,9 +34,9 @@ export default class Main extends Component {
 			<div style={this.styles.container}>
 				<Drawer open={this.state.is_showing_menu} docked={false} onRequestChange={this.hideMenu}>
 					<Menu onTouchTap={this.hideMenu}>
-						<MenuItem primaryText='Index' containerElement={<Link to='/'/>}/>
-						<MenuItem primaryText='Route Example 1' containerElement={<Link to='/route_example_1'/>}/>
-						<MenuItem primaryText='Route Example 2' containerElement={<Link to='/route_example_2'/>}/>
+						<MenuItem primaryText='Index' containerElement={<Link to='/' />} />
+						<MenuItem primaryText='Route Example 1' containerElement={<Link to='/route_example_1' />} />
+						<MenuItem primaryText='Route Example 2' containerElement={<Link to='/route_example_2' />} />
 					</Menu>
 				</Drawer>
 
@@ -46,8 +45,8 @@ export default class Main extends Component {
 					iconClassNameRight='muidocs-icon-navigation-expand-more'
 					onLeftIconButtonTouchTap={this.showMenu}
 				/>
-				
-				<Routes/>
+
+				<Routes />
 			</div>
 		);
 	}

@@ -1,8 +1,13 @@
-
-FROM node:8.1.3-alpine
-RUN npm install -g http-server
+FROM node:8.3.0-alpine
 RUN mkdir -p /opt/react-webpack-babel-hotreload-example
 WORKDIR /opt/react-webpack-babel-hotreload-example
 COPY . .
-CMD http-server -p 8000
+RUN \
+	apk add --no-cache --virtual build-deps \
+		python=2.7.13-r1 \
+		make=4.2.1-r0 \
+		g++=6.3.0-r4 && \
+	npm rebuild && \
+	apk del build-deps
 EXPOSE 8000
+CMD ["npm", "start"]
