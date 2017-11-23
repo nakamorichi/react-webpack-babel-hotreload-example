@@ -32,17 +32,14 @@
 	"engines": {
 		"node": ">=8.2.0"
 	},
-	"moduleRoots": [
-		"src"
-	],
 	"scripts": {
 		"start": "http-server -p 8000",
 		"start:dev": "cross-env NODE_ENV=development nodemon --watch webpack-dev-server.js --watch webpack.config.js webpack-dev-server.js",
+		"start:docker": "docker run -d -p 8000:8000 kitanotori/react-webpack-babel-hotreload-example",
 		"build": "npm run lint && npm run build:raw",
 		"build:raw": "cross-env NODE_ENV=production webpack",
-		"build:docker": "npm install && npm run build && npm run deps:prod && npm run docker && npm install",
-		"deps:prod": "rm -rf node_modules && npm install --production",
-		"docker": "docker build -t kitanotori/react-webpack-babel-hotreload-example .",
+		"build:docker": "npm install && npm run build && npm prune --production && npm run build:docker:raw && npm install",
+		"build:docker:raw": "docker build -t kitanotori/react-webpack-babel-hotreload-example .",
 		"lint": "eslint \"*.js\" \"src/**/*.js{,x}\""
 	},
 	"dependencies": {
