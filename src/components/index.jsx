@@ -28,15 +28,23 @@ class Index extends Component {
 
 	// Component methods
 	showDialog = () => {
+		console.log('Showing dialog');
 		this.setState({ is_showing_dialog: true });
 	}
 
 	hideDialog = () => {
+		console.log('Hiding dialog');
 		this.setState({ is_showing_dialog: false });
 	}
 
 	render() {
-		const { fetch_result, fetch_url, changeFetchURL, requestAsyncFetch } = this.props;
+		const {
+			fetch_result,
+			fetch_url,
+			changeFetchURL,
+			requestAsyncFetch,
+		} = this.props;
+
 		const dialog_actions = (
 			<div>
 				<FlatButton label='Fetch' secondary={true} onTouchTap={requestAsyncFetch} />
@@ -57,8 +65,8 @@ class Index extends Component {
 						fullWidth={true}
 					/>
 					<ul>
-						{fetch_result.map((obj, idx) => (
-							<li>
+						{fetch_result.map(obj => (
+							<li key={obj.id}>
 								<pre>{JSON.stringify(obj)}</pre>
 							</li>
 						))}

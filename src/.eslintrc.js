@@ -33,6 +33,7 @@ module.exports = {
 			},
 		],
 		'func-names': ['error', 'as-needed'],
+		'function-paren-newline': 0,
 		'import/no-extraneous-dependencies': [
 			'error',
 			{
@@ -42,6 +43,7 @@ module.exports = {
 			},
 		],
 		indent: ['error', 'tab', { 'SwitchCase': 1 }],
+		'jsx-a11y/anchor-is-valid': 0,
 		'jsx-quotes': ['error', 'prefer-single'],
 		'max-len': [
 			'warn',

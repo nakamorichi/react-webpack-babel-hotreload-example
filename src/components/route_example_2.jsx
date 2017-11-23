@@ -20,8 +20,8 @@ class RouteExample2 extends Component {
 			<div>
 				<h1>RouteExample2</h1>
 				<ul>
-					{fetch_result.map((obj, idx) => (
-						<li>
+					{fetch_result.map(obj => (
+						<li key={obj.id}>
 							<pre>{JSON.stringify(obj)}</pre>
 						</li>
 					))}

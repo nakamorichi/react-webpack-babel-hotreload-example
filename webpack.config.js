@@ -92,7 +92,7 @@ if (IN_DEV_MODE) { // development mode (webpack-dev-server)
 	console.log(`Production mode: NODE_ENV=${NODE_ENV}`);
 	plugins.push(new UglifyJSPlugin({
 		uglifyOptions: {
-			compress: false, // NOTE: If not set to false, output invalid as of plugin version 1.0.0-beta.2
+			compress: true,
 			ecma: 8,
 			// mangle: {},
 			// warnings: true,

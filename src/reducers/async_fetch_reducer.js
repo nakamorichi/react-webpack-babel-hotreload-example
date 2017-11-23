@@ -1,4 +1,4 @@
-import { call, put, select, takeLatest } from 'redux-saga/effects';
+import { all, call, put, select, takeLatest } from 'redux-saga/effects';
 
 import http from 'utilities/http';
 
@@ -34,7 +34,8 @@ export const changeFetchURLAction = (obj) => {
 
 // Saga workers
 const asyncFetchWorker = function* (action) {
-	const fetch_url = action.url || (yield select(state => state.asyncFetchReducer.fetch_url));
+	const url = yield select(state => state.asyncFetchReducer.fetch_url);
+	const fetch_url = action.url || url;
 	try {
 		let data = yield call(http, fetch_url);
 		if (data && !(data instanceof Array)) data = [data];
@@ -46,9 +47,9 @@ const asyncFetchWorker = function* (action) {
 
 // Saga watchers (remember to fork these in the root Saga)
 export const asyncFetchWatchers = function* () {
-	yield [
+	yield all([
 		takeLatest(REQUEST_ASYNC_FETCH, asyncFetchWorker),
-	];
+	]);
 };
 
 export const asyncFetchReducer = (state = initial_state, action) => {

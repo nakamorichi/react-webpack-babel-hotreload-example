@@ -1,18 +1,20 @@
 {
-	"presets": ["stage-3", "react"],
+	"presets": [
+		"react"
+	],
 	"env": {
 		"development": {
 			"plugins": [
+				"transform-object-rest-spread",
 				"transform-class-properties",
 				"transform-es2015-classes",
-				"transform-export-extensions",
 				"react-hot-loader/babel"
 			]
 		},
 		"production": {
 			"plugins": [
-				"transform-class-properties",
-				"transform-export-extensions"
+				"transform-object-rest-spread",
+				"transform-class-properties"
 			]
 		}
 	}
