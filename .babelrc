@@ -5,16 +5,16 @@
 	"env": {
 		"development": {
 			"plugins": [
-				"transform-object-rest-spread",
-				"transform-class-properties",
-				"transform-es2015-classes",
+				"@babel/plugin-proposal-object-rest-spread",
+				"@babel/plugin-proposal-class-properties",
+				"@babel/plugin-transform-classes",
 				"react-hot-loader/babel"
 			]
 		},
 		"production": {
 			"plugins": [
-				"transform-object-rest-spread",
-				"transform-class-properties"
+				"@babel/plugin-proposal-object-rest-spread",
+				"@babel/plugin-proposal-class-properties"
 			]
 		}
 	}
