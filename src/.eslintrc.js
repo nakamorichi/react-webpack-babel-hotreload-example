@@ -68,6 +68,7 @@ module.exports = {
 				ignoreRestSiblings: true,
 			},
 		],
+		'object-curly-newline': 0,
 		radix: 0,
 		'react/jsx-boolean-value': 0,
 		'react/jsx-indent': ['error', 'tab'],

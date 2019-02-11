@@ -11,7 +11,8 @@ class RouteExample2 extends Component {
 	}
 
 	componentDidMount() {
-		this.props.requestAsyncFetch('https://jsonplaceholder.typicode.com/posts/1');
+		const { requestAsyncFetch } = this.props;
+		requestAsyncFetch('https://jsonplaceholder.typicode.com/posts/1');
 	}
 
 	render() {

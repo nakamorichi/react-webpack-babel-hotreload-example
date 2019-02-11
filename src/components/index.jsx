@@ -52,12 +52,13 @@ class Index extends Component {
 			</div>
 		);
 
+		const { is_showing_dialog } = this.state;
 		return (
 			<div>
 				<h2>An example of how to set up React, Redux, Saga, and routing together with Webpack, Babel, and hot reloading</h2>
 				<RaisedButton label='Test asynchronic fetch' primary={true} onTouchTap={this.showDialog} />
 
-				<Dialog open={this.state.is_showing_dialog} title='Example async fetch using Saga' actions={dialog_actions} onRequestClose={this.hideDialog}>
+				<Dialog open={is_showing_dialog} title='Example async fetch using Saga' actions={dialog_actions} onRequestClose={this.hideDialog}>
 					<TextField
 						id='text-field-controlled'
 						value={fetch_url}

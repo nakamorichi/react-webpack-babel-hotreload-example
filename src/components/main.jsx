@@ -30,9 +30,10 @@ export default class Main extends Component {
 	}
 
 	render() {
+		const { is_showing_menu } = this.state;
 		return (
 			<div style={this.styles.container}>
-				<Drawer open={this.state.is_showing_menu} docked={false} onRequestChange={this.hideMenu}>
+				<Drawer open={is_showing_menu} docked={false} onRequestChange={this.hideMenu}>
 					<Menu onTouchTap={this.hideMenu}>
 						<MenuItem primaryText='Index' containerElement={<Link to='/' />} />
 						<MenuItem primaryText='Route Example 1' containerElement={<Link to='/route_example_1' />} />
