@@ -5,7 +5,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const Path = require('path');
 const Webpack = require('webpack');
 const WebpackOnBuildPlugin = require('on-build-webpack');
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
 const pkg = require('./package.json');
 
@@ -23,13 +22,6 @@ const plugins = [
 			// Necessary for applying the correct environment everywhere
 			NODE_ENV: JSON.stringify(NODE_ENV),
 		},
-	}),
-	new Webpack.optimize.CommonsChunkPlugin({
-		name: 'vendor',
-		minChunks: module => module.context && module.context.indexOf('node_modules') !== -1,
-	}),
-	new Webpack.optimize.CommonsChunkPlugin({
-		name: 'manifest',
 	}),
 	new HtmlWebpackPlugin({
 		filename: 'index.html',
@@ -61,10 +53,35 @@ const conf = {
 		],
 	},
 	plugins,
+	// TODO: optimize
+	optimization: {
+		splitChunks: {
+			chunks: 'async',
+			minSize: 30000,
+			maxSize: 0,
+			minChunks: 1,
+			maxAsyncRequests: 5,
+			maxInitialRequests: 3,
+			automaticNameDelimiter: '~',
+			name: true,
+			cacheGroups: {
+				vendors: {
+					test: /[\\/]node_modules[\\/]/,
+					priority: -10
+				},
+				default: {
+					minChunks: 2,
+					priority: -20,
+					reuseExistingChunk: true,
+				}
+			}
+		}
+	}
 };
 
 if (IN_DEV_MODE) { // development mode (webpack-dev-server)
 	console.log(`Development mode: NODE_ENV=${NODE_ENV}`);
+	conf.mode = 'development';
 	plugins.push(new Webpack.NoEmitOnErrorsPlugin());
 	plugins.push(new Webpack.NamedModulesPlugin());
 	plugins.push(new Webpack.HotModuleReplacementPlugin());
@@ -90,14 +107,7 @@ if (IN_DEV_MODE) { // development mode (webpack-dev-server)
 	};
 } else { // production mode (bundling)
 	console.log(`Production mode: NODE_ENV=${NODE_ENV}`);
-	plugins.push(new UglifyJSPlugin({
-		uglifyOptions: {
-			compress: true,
-			ecma: 8,
-			// mangle: {},
-			// warnings: true,
-		},
-	}));
+	conf.mode = 'production';
 
 	plugins.push(new WebpackOnBuildPlugin(stats => {
 		const newlyCreatedAssets = stats.compilation.assets;
